@@ -3,101 +3,247 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Keke Naranja Avena | Golden Monk</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <title>Golden Monk | Dashboard</title>
     <style>
-        body { margin: 0; padding: 0; background-color: #FFF9F2; font-family: 'Inter', sans-serif; color: #4A3C31; }
-        .container { max-width: 500px; margin: 0 auto; background-color: #FFFFFF; padding: 30px 20px; box-sizing: border-box; }
+        :root { --forest: #2D4628; --gold: #D4AF37; --bg: #F9F7F2; --white: #ffffff; --text: #1C1C1C; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 20px; display: flex; flex-direction: column; align-items: center; }
+        .container { max-width: 480px; width: 100%; text-align: center; }
+        .logo { font-size: 28px; font-weight: bold; letter-spacing: 3px; color: var(--forest); margin-top: 10px; }
+        .subtitle { font-size: 11px; opacity: 0.7; margin-bottom: 30px; text-transform: uppercase; letter-spacing: 2px; }
         
-        .brand { font-family: 'Playfair Display', serif; font-size: 14px; letter-spacing: 2px; text-transform: uppercase; color: #E67E22; text-align: center; margin-bottom: 10px; }
-        h1 { font-family: 'Playfair Display', serif; font-size: 32px; text-align: center; margin: 0; color: #D35400; }
-        .weight { text-align: center; font-size: 14px; color: #A1887F; margin-bottom: 25px; }
+        .menu { display: flex; flex-direction: column; gap: 12px; }
+        .btn { background: var(--forest); color: var(--white); border: none; padding: 18px; border-radius: 15px; font-size: 15px; font-weight: bold; cursor: pointer; text-decoration: none; transition: 0.2s; display: flex; align-items: center; justify-content: center; gap: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .btn-ws { background: #25D366; }
+        .btn-checklist { background: var(--gold); color: var(--forest); margin-top: 20px; }
+        .btn:active { transform: scale(0.98); }
 
-        .badge-container { display: flex; justify-content: space-between; margin-bottom: 25px; gap: 5px; }
-        .badge { font-size: 10px; font-weight: 700; color: #D35400; text-align: center; flex: 1; }
-        .badge span { display: block; font-size: 20px; margin-bottom: 5px; }
+        .content { display: none; background: var(--white); padding: 25px; border-radius: 25px; text-align: left; box-shadow: 0 10px 25px rgba(0,0,0,0.05); margin-top: 10px; animation: fadeIn 0.3s ease; margin-bottom: 30px; }
+        .active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        .process-box { background-color: #FDF2E9; border-left: 4px solid #E67E22; padding: 15px; margin-bottom: 25px; font-size: 13px; line-height: 1.5; }
-
-        .promises { background-color: #FFF3E0; padding: 18px; border-radius: 12px; margin-bottom: 20px; border: 1px solid #FFE0B2; }
-        .promise-item { display: flex; align-items: center; margin-bottom: 8px; font-size: 13px; font-weight: 500; }
-        .promise-item::before { content: "✓"; color: #E67E22; font-weight: bold; margin-right: 10px; }
-
-        .ingredients-box { margin-bottom: 25px; padding: 0 5px; }
-        .ingredients-box h4 { font-size: 14px; text-transform: uppercase; margin-bottom: 8px; color: #D35400; border-bottom: 1px solid #F0EAE5; padding-bottom: 4px; }
-        .ingredients-box p { font-size: 12.5px; line-height: 1.5; color: #5D4037; margin: 0; }
-
-        .nutrition-card { border: 2px solid #D35400; padding: 15px; margin-bottom: 20px; }
-        .nutrition-card h3 { margin: 0; font-size: 18px; border-bottom: 4px solid #D35400; padding-bottom: 5px; text-transform: uppercase; color: #D35400; }
-        .nutri-row { display: flex; justify-content: space-between; border-bottom: 1px solid #FFE0B2; padding: 8px 0; font-size: 14px; }
-        .nutri-row.bold { font-weight: 700; border-bottom-width: 2px; border-bottom-color: #D35400; }
-        .nutri-row.highlight { background-color: #FFFDE7; border: 1px solid #FBC02D; padding: 6px 5px; }
-
-        .apple-box { background-color: #F1F8E9; border: 1px dashed #689F38; padding: 15px; border-radius: 8px; display: flex; align-items: center; margin-bottom: 25px; }
-        .apple-box span { font-size: 30px; margin-right: 15px; }
-        .apple-box p { margin: 0; font-size: 13px; line-height: 1.4; color: #33691E; }
-
-        .whatsapp-btn { display: block; background-color: #25D366; color: #ffffff; text-align: center; padding: 16px; border-radius: 8px; text-decoration: none; font-weight: 600; }
-        .footer-text { text-align: center; font-size: 11px; color: #8D6E63; margin-top: 25px; line-height: 1.5; }
+        h2 { color: var(--forest); border-bottom: 2px solid var(--gold); padding-bottom: 8px; font-size: 18px; text-transform: uppercase; }
+        h3 { color: var(--forest); font-size: 16px; margin-top: 25px; margin-bottom: 10px; font-weight: bold; }
+        p, li { line-height: 1.6; font-size: 14px; margin-bottom: 12px; }
+        ul { padding-left: 20px; margin-bottom: 15px; }
+        
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 13px; }
+        th { background: var(--forest); color: white; padding: 10px; }
+        td { border-bottom: 1px solid #eee; padding: 12px 5px; text-align: center; }
+        .exp-text { font-size: 11px; color: #666; font-style: italic; text-align: left; padding: 8px; background: #fffcf5; }
+        input[type="checkbox"] { width: 22px; height: 22px; accent-color: var(--forest); cursor: pointer; }
+        
+        .back-btn { margin-top: 25px; background: #f0f0f0; border: none; padding: 15px; border-radius: 12px; width: 100%; font-weight: bold; cursor: pointer; color: var(--forest); }
+        .footer-note { font-style: italic; font-size: 13px; margin-top: 20px; color: #555; }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <div class="brand">Golden Monk</div>
-    <h1>Naranja & Avena</h1>
-    <div class="weight">Keke Artesanal Funcional · Aprox. 600g</div>
-
-    <div class="badge-container">
-        <div class="badge"><span>💪</span>6.4g PROT.</div>
-        <div class="badge"><span>🌾</span>SIN TRIGO</div>
-        <div class="badge" style="color: #D32F2F;"><span>🍭</span>0% AZÚCAR</div>
-        <div class="badge"><span>🍊</span>NATURAL</div>
-    </div>
-
-    <div class="process-box">
-        <strong>Esencia Real:</strong> Elaborado con ralladura de cáscara seca y pasta de naranja artesanal macerada. Sin saborizantes químicos, solo fruta real procesada por nosotros.
-    </div>
-
-    <div class="promises">
-        <div class="promise-item">Textura húmeda y densa (Abudinado)</div>
-        <div class="promise-item">Endulzado 100% con Alulosa Premium</div>
-        <div class="promise-item">Grasas Saludables (Aceite de Oliva)</div>
-        <div class="promise-item">Sin lácteos (con Leche de Soya)</div>
-    </div>
-
-    <div class="ingredients-box">
-        <h4>Ingredientes Reales</h4>
-        <p>Harina de avena integral, huevos, leche de soya, alulosa, aceite de oliva, pasta artesanal de naranja, ralladura seca.</p>
-    </div>
-
-    <div class="nutrition-card">
-        <h3>Datos Nutricionales</h3>
-        <div style="font-size: 11px; margin-bottom: 8px; color: #616161;">Valores por porción: 1 tajada (60g aprox.)</div>
-        <div class="nutri-row bold"><span>Calorías</span><span>150 kcal</span></div>
-        <div class="nutri-row"><span>Grasas Saludables (Oliva/Huevo)</span><span>6.5g</span></div>
-        <div class="nutri-row"><span>Colesterol</span><span>35mg</span></div>
-        <div class="nutri-row bold"><span>Carbohidratos Netos</span><span>17g</span></div>
-        <div class="nutri-row" style="padding-left: 12px; font-size: 12px;"><span>Fibra (Avena)</span><span>2.5g</span></div>
-        <div class="nutri-row highlight" style="padding-left: 12px; font-size: 12px;"><span>Azúcares</span><span>0g</span></div>
-        <div class="nutri-row bold" style="background-color: #FFF3E0; border-bottom: none;"><span>Proteína</span><span>6.4g</span></div>
-    </div>
-
-    <div class="apple-box">
-        <span>🥚</span>
-        <p><strong>Dato Golden Monk:</strong> Una tajada te aporta <strong>la misma proteína que un huevo grande</strong>. Energía real sin picos de azúcar ni pesadez.</p>
-    </div>
-
-    <a href="https://wa.me/51913642644?text=Hola%20Golden%20Monk,%20quiero%20hacer%20un%20pedido%20de%20Keke%20de%20Naranja" class="whatsapp-btn">
-        Solicitar Pedido por WhatsApp
-    </a>
-
-    <div class="footer-text">
-        Contiene alulosa, endulzante natural con índice glucémico casi cero.<br>
-        <strong>Elaboración artesanal. Consérvese en refrigeración.</strong><br>
-        Lima, Perú.
+<div class="container" id="home">
+    <div class="logo">GOLDEN MONK</div>
+    <div class="subtitle">Decisiones Conscientes</div>
+    <div class="menu">
+        <button class="btn" onclick="show('seccion1')">🌿 1. Azúcar vs Alulosa</button>
+        <button class="btn" onclick="show('seccion2')">🌿 2. Kit Desinflamación</button>
+        <button class="btn" onclick="show('seccion3')">🥧 3. Postre de Avena sin Azúcar</button>
+        <a href="https://wa.me/51913642644" class="btn btn-ws" target="_blank">📲 4. Contacto</a>
     </div>
 </div>
+
+<div id="seccion1" class="content container">
+    <h2>1. 🌿 Azúcar vs Alulosa</h2>
+    <h3>El mito de lo “natural”</h3>
+    <p>Blanca, rubia o panela: siguen siendo azúcar.</p>
+    <p>Todas impactan el cuerpo de la misma forma:</p>
+    <ul>
+        <li>Provocan picos de insulina y caídas de energía.</li>
+        <li>Aportan calorías vacías.</li>
+        <li>Mantienen la dependencia al dulce.</li>
+    </ul>
+    <p>Que cambie el color no cambia su efecto.</p>
+
+    <h3>La trampa de los comerciales (Stevia y Monk Fruit)</h3>
+    <p>Muchos productos de supermercado no son puros; contienen maltodextrina como ingrediente principal. La maltodextrina es un carbohidrato de rápida absorción que eleva la glucosa igual que el azúcar tradicional.</p>
+
+    <h3>💎 ¿Por qué elegimos Alulosa?</h3>
+    <p>Es un endulzante de origen natural presente en pequeñas cantidades en frutas.</p>
+    <p>Tiene un sabor muy similar al azúcar, pero con diferencias clave:</p>
+    <ul>
+        <li>Aporte calórico mínimo.</li>
+        <li>No genera picos de insulina.</li>
+        <li>No produce bajones de energía.</li>
+        <li>No produce caries.</li>
+        <li>Sin retrogusto metálico.</li>
+    </ul>
+    <p>Permite mantener el dulzor sin sostener el impacto del azúcar refinada.</p>
+
+    <h3>✔ Guía de Uso</h3>
+    <p><b>Ideal para:</b></p>
+    <ul>
+        <li>Endulzar café, infusiones y bebidas frías.</li>
+        <li>Acompañar procesos de control de peso.</li>
+        <li>Estabilizar la energía diaria.</li>
+        <li>Reeducar el paladar sin restricciones extremas.</li>
+    </ul>
+    <p><b>No es para:</b></p>
+    <ul>
+        <li>Caramelizar.</li>
+        <li>Hacer mermeladas o almíbares espesos.</li>
+        <li>Sustituir una alimentación desordenada.</li>
+    </ul>
+
+    <h3>🌱 Nuestra Filosofía</h3>
+    <p>No vendemos soluciones mágicas, sino decisiones conscientes.</p>
+    <p>Creemos que el hábito transforma más que la prisa. Esto no es una restricción. Es tu reinicio.</p>
+    <button class="back-btn" onclick="goHome()">⬅ VOLVER AL MENÚ</button>
+</div>
+
+<div id="seccion2" class="content container">
+    <h2>2. 🌿 LIBERACIÓN: TU SEMANA SIN AZÚCAR</h2>
+    <p>Reducir el azúcar procesada es una decisión estratégica. Este programa se apoya en dos pilares claros:</p>
+    <ul>
+        <li><b>Alulosa:</b> sustitución inteligente.</li>
+        <li><b>Botánica:</b> acompañamiento funcional.</li>
+    </ul>
+    <p>Sin extremos. Sin artificios. Desinflama tu cuerpo en 7 días.</p>
+
+    <h3>📋 EL RITUAL</h3>
+    <p>Una rutina simple. Precisa. Sostenible.</p>
+    <p><b>🌅 MAÑANA (Antes del desayuno):</b> 1 cdta (5g) Infusión DÍA + 1 cdta (5g) Alulosa.</p>
+    <p><b>🌙 NOCHE (Antes de la cena):</b> 1 cdta (5g) Infusión NOCHE + 1 cdta (5g) Alulosa.</p>
+    <p>Preparación: Agregar 250ml agua hirviendo. Reposar 5 minutos. Beber con intención.</p>
+
+    <h3>💎 EL EJE: ALULOSA</h3>
+    <p>Durante 7 días sustituyes el azúcar tradicional por Alulosa. Este ajuste permite:</p>
+    <ul>
+        <li>Mantener el dulzor real.</li>
+        <li>Evitar subidas y bajones bruscos de energía.</li>
+        <li>Reducir la dependencia al azúcar refinada.</li>
+    </ul>
+    <p>La sustitución crea el cambio.</p>
+
+    <h3>🍃 EL COMPLEMENTO: INFUSIONES</h3>
+    <p><b>MAÑANA (Té Rojo · Té Verde · Jazmín):</b> Energía más estable. Menos ansiedad por el dulce.</p>
+    <p><b>NOCHE (Jamaica · Canela · Pimpinela):</b> Máxima ligereza. Favorece la eliminación de líquidos retenidos y la digestión.</p>
+    <p>Acompañan el proceso. No lo reemplazan.</p>
+
+    <h3>🌱 FILOSOFÍA GOLDEN MONK</h3>
+    <p>Elegimos ingredientes reales. Constancia sobre promesas. No prometemos milagros: acompañamos un cambio de hábitos. Esto no es restricción. Es control.</p>
+    
+    <button class="btn btn-checklist" onclick="show('checklist_page')">🗓️ VER MI HOJA DE RUTA (7 DÍAS)</button>
+    <button class="back-btn" onclick="goHome()">⬅ VOLVER AL MENÚ</button>
+</div>
+
+<div id="checklist_page" class="content container">
+    <h2>2.1 🗓️ MI HOJA DE RUTA (7 DÍAS)</h2>
+    <table>
+        <thead><tr><th>Día</th><th>☀️</th><th>🌙</th><th>💧 2L</th></tr></thead>
+        <tbody id="checklist-body"></tbody>
+    </table>
+    <button class="back-btn" onclick="show('seccion2')">⬅ VOLVER AL MANUAL</button>
+</div>
+
+<div id="seccion3" class="content container">
+    <h2>3. 🥣 Postre de Avena con Cacao y Alulosa</h2>
+    <h3>✨ Endulzado con 100% Alulosa</h3>
+    <p>El gran diferencial de nuestra receta es el uso exclusivo de alulosa, un endulzante que permite disfrutar el sabor real de un postre artesanal sin azúcar añadida.</p>
+    <ul>
+        <li>✔ 0% azúcar añadida</li>
+        <li>✔ Dulzor equilibrado</li>
+        <li>✔ Ideal para quienes buscan reducir su consumo de azúcar sin renunciar al placer</li>
+    </ul>
+
+    <h3>🌾 La fuerza nutritiva de la avena</h3>
+    <p>Nuestra base está elaborada con avena, aportando textura, fibra y un perfil nutricional más completo que las harinas refinadas. Una opción más consciente y nutritiva para tu día a día.</p>
+
+    <h3>🥛 Sin lácteos</h3>
+    <p>No utilizamos mantequilla ni leche tradicional. La humedad perfecta se logra gracias a la combinación de aceite de oliva y leche de soya, convirtiéndolo en una excelente alternativa para personas intolerantes a la lactosa.</p>
+
+    <h3>🍫 Cacao orgánico de alta pureza</h3>
+    <p>El sabor intenso y profundo proviene de cacao orgánico seleccionado, que aporta carácter y equilibrio en cada bocado.</p>
+
+    <h3>💡 Recomendaciones de Consumo y Conservación</h3>
+    <p><b>Cómo disfrutarlo:</b> Acompaña tu porción con una infusión caliente para resaltar las notas naturales del cacao. También puedes calentarlo ligeramente unos segundos para potenciar su aroma y textura.</p>
+    <p><b>Conservación:</b> Mantener en un lugar fresco y seco, con el envase bien cerrado para conservar su humedad. Revisar siempre la fecha de vencimiento indicada en el empaque.</p>
+
+    <h3>📋 Ficha Técnica</h3>
+    <ul>
+        <li>Producción: 100% artesanal</li>
+        <li>Peso neto: 400 g aprox.</li>
+        <li>Endulzante: 100% Alulosa</li>
+        <li>Sin lácteos</li>
+    </ul>
+    <p>⚠️ <b>Atención:</b> No certificado libre de gluten.</p>
+
+    <h3>📊 Composición Nutricional Estimada</h3>
+    <p><b>Valores por porción (50 g):</b></p>
+    <ul>
+        <li>Energía: ~160 kcal</li>
+        <li>Proteínas: 4 g</li>
+        <li>Grasas saludables: 7.7 g</li>
+        <li>Carbohidratos netos: 13.1 g</li>
+        <li>Azúcares Añadidos: 0 g</li>
+    </ul>
+    <p class="footer-note">Valores estimados. Al ser un producto artesanal, pueden variar ligeramente.</p>
+    
+    <button class="back-btn" onclick="goHome()">⬅ VOLVER AL MENÚ</button>
+</div>
+
+<script>
+    const expectativas = [
+        "Entusiasmo y sensación de ligereza.",
+        "Comienza la desinflamación visible.",
+        "Día Crítico: Usa tu Alulosa extra en el café.",
+        "Tu paladar y olfato se vuelven más agudos.",
+        "Energía estable y menos ansiedad.",
+        "Digestión ligera y mejor descanso.",
+        "¡Victoria! Estás en control de tu cuerpo."
+    ];
+
+    function renderChecklist() {
+        const body = document.getElementById('checklist-body');
+        let html = '';
+        for(let i=1; i<=7; i++) {
+            html += `
+                <tr>
+                    <td><b>${i}</b></td>
+                    <td><input type="checkbox" id="d${i}am" onclick="save()"></td>
+                    <td><input type="checkbox" id="d${i}pm" onclick="save()"></td>
+                    <td><input type="checkbox" id="d${i}ag" onclick="save()"></td>
+                </tr>
+                <tr><td colspan="4" class="exp-text">${expectativas[i-1]}</td></tr>
+            `;
+        }
+        body.innerHTML = html;
+        loadChecks();
+    }
+
+    function show(id) {
+        document.getElementById('home').style.display = 'none';
+        document.querySelectorAll('.content').forEach(c => c.classList.remove('active'));
+        document.getElementById(id).classList.add('active');
+        window.scrollTo(0,0);
+        if(id === 'checklist_page') renderChecklist();
+    }
+
+    function goHome() {
+        document.querySelectorAll('.content').forEach(c => c.classList.remove('active'));
+        document.getElementById('home').style.display = 'block';
+    }
+
+    function save() {
+        const checks = document.querySelectorAll('input[type="checkbox"]');
+        checks.forEach(c => localStorage.setItem(c.id, c.checked));
+    }
+
+    function loadChecks() {
+        const checks = document.querySelectorAll('input[type="checkbox"]');
+        checks.forEach(c => {
+            if(localStorage.getItem(c.id) === "true") c.checked = true;
+        });
+    }
+
+    window.onload = loadChecks;
+</script>
 
 </body>
 </html>
